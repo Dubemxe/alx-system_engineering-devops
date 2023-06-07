@@ -1,2 +1,2 @@
 #!/bin/bash
-ln -s _ls_ -> /bin/ls  > /tmp/my_first_directory 
+ln -s /bin/ls __ls__
