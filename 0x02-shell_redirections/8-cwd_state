@@ -1,0 +1,2 @@
+#!/bin/bash
+echo 'list all files and directories even hidden ones beginning with . in long format' > ls_cwd_content
