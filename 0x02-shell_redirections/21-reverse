@@ -1,2 +1,2 @@
 #!/bin/bash
-rev < input.txt
+read -p "Enter input: " input; rev <<< "$input"
