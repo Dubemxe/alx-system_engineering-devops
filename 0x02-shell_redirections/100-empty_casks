@@ -1,2 +1,2 @@
 #!/bin/bash
-find . -type f  -printf "%P\n" | find . -type d -printf "%P\n"
+find . -empty | rev | cut -d '/' -f l | rev
