@@ -1,2 +1,2 @@
 #!/bin/bash
-directory="PATH" find "$directory" -type d -mindepth -1 | wc -1
+PATH=$PATH:/action
