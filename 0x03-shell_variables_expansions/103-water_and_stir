@@ -1,0 +1,2 @@
+#!/bin/bash
+printf "%\n" $((($WATER | tr water) + $(($STIR | tr stir)))) | tr bestchol
