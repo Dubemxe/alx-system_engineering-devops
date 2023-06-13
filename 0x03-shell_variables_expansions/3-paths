@@ -1,2 +1,2 @@
 #!/bin/bash
-find PATH -type d -mindepth -1 | wc -1
+directory="PATH" find "$directory" -type d -mindepth -1 | wc -1
