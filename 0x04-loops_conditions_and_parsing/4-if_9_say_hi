@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# This script is displaying "Best School" 10 times if the iteration reaches 9
+#+ display "Best school" and "Hi" on a new line
+
+i=0
+while (( i<10 ))
+do
+	echo "Best School"
+	(( i++ ))
+
+	if (( i == 8 ))
+	then
+		echo -e "Best School\nHi"
+		(( i++ ))
+	fi
+done
