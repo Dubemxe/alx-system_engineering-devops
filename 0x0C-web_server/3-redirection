@@ -7,7 +7,7 @@
 #  updates the package lists for available software packages.
 apt-get update
 # installs the Nginx web server.
-apt-get install -y nginx
+apt-get install nginx
 
 # Creates the /etc/nginx/html directory, which will serve as the document root directory for Nginx.
 mkdir /etc/nginx/html
@@ -30,6 +30,7 @@ echo "server {
     listen [::]:80;
 
     root /var/www/html;
+}" | sudo tee /etc/nginx/sites-available/redirect
 
 # Enable the new site configuration
 sudo ln -s /etc/nginx/sites-available/redirect /etc/nginx/sites-enabled/
