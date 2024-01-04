@@ -3,50 +3,49 @@
 # The redirection is configured as a "301 Moved Permanently"
 # Includes a custom 404 page containing "Ceci n'est pas une page".
 
-#  updates the package lists for available software packages.
-apt-get update
-# installs the Nginx web server.
-apt-get install nginx
+# Exit on error
+set -e
 
-sudo -p mkdir /etc/nginx/html
+# Update package lists for available software packages.
+sudo apt-get update
+
+# Install the Nginx web server.
+sudo apt-get install -y nginx
+
+# Create directories and files
+sudo mkdir -p /etc/nginx/html
 sudo touch /etc/nginx/html/index.html
-#  sets the content of the index file
-echo "Hello World!" | sudo tee /etc/nginx/html/index.html
-# Sets Nginx to listen on port 80 and serve f
-printf %s "server {
-     listen      80 default_server;
-     listen      [::]:80 default_server;
-     root        /etc/nginx/html;
-     index       index.html index.html;
-}
-" > /etc/nginx/sites-available/default
-
-#  creates an empty file named 404.html inside the /etc/nginx/html directory.
 sudo touch /etc/nginx/html/404.html
 
-# Paste a 404 response in the 404.html file
+# Set content for index.html
+echo "Hello World!" | sudo tee /etc/nginx/html/index.html
+
+# Set content for 404.html
 echo "Ceci n'est pas une page" | sudo tee /etc/nginx/html/404.html
 
-# Display script completion message
-echo "Nginx installation and configuration completed."
-
-# Create a configuration file for the redirection
-echo "server {
-    listen      80;
-    listen      [::]:80;
+# Configure Nginx
+sudo tee /etc/nginx/sites-available/default > /dev/null <<EOF
+server {
+    listen      80 default_server;
+    listen      [::]:80 default_server;
     root        /etc/nginx/html;
-    index       index.html index.html;
+    index       index.html index.htm;
 
-    error_page 404 /404.html;
-    location = /404 {
-      root /etc/nginx/html;
-      internal;
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
     }
 
-}" | sudo tee /etc/nginx/sites-available/default
-# Enable the new site configuration
-sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+    error_page 404 /404.html;
+    location = /404.html {
+        root /etc/nginx/html;
+        internal;
+    }
+}
+EOF
 
-# Test nginx configuration and reload
+# Enable the new site configuration
+sudo ln -s -f /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+
+# Test Nginx configuration and reload
 sudo nginx -t
 sudo service nginx reload
