@@ -8,7 +8,7 @@
 #  updates the package lists for available software packages.
 apt-get update
 # installs the Nginx web server.
-apt-get install -y nginx
+apt-get install nginx
 
 # Creates the /etc/nginx/html directory, which will serve as the document root directory for Nginx.
 mkdir /etc/nginx/html
@@ -21,7 +21,7 @@ printf %s "server {
      listen      80;
      listen      [::]:80 default_server;
      root        /etc/nginx/html;
-     index       index.html index.htm;
+     index       index.html index.html;
 }
 " > /etc/nginx/sites-available/default
 
